@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       builder: (context, provider, child) {
                         if (provider.dataState == DataStates.success) {
                           WidgetsBinding.instance.addPostFrameCallback((_) {
-                            Navigator.pushNamedAndRemoveUntil(context, homeScreen, (route) => false);
+                            Navigator.pushNamedAndRemoveUntil(context, homeLayout, (route) => false);
                           });
                         }
                         return provider.dataState != DataStates.loading
@@ -175,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       visible: true,
                       child: GestureDetector(
                         onTap: () {
-                           Navigator.pushNamed(context, homeScreen);
+                           Navigator.pushNamed(context, homeLayout);
                         },
                         child: const Align(
                           alignment: Alignment.center,

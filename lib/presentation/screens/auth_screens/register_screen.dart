@@ -196,7 +196,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Consumer(builder: (context, AuthProvider provider, _) {
                           if (provider.dataState == DataStates.success) {
                             WidgetsBinding.instance.addPostFrameCallback((_) {
-                              Navigator.pushNamed(context, homeScreen);
+                              Navigator.pushNamed(context, homeLayout);
                             });
                           }
                           return provider.dataState != DataStates.loading

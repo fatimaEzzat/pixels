@@ -20,5 +20,6 @@ class MyColors {
   static const Color primaryColor=Color(0xff52A8DB);
   static const Color splashBG = Color(0xffF0F1F3);
   static const Color greyTextColor=Color(0xff848592);
+  static const Color customGrey=Color(0xffE0E0E0);
 
 }

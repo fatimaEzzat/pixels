@@ -4,6 +4,12 @@ import '../../shared/constants.dart';
 
 class FirebaseAuthApi{
 
+  Future<dynamic> getUserData({required String uId}) async {
+    return FirebaseFirestore.instance
+        .collection(usersCollection)
+        .doc(uId)
+        .get();
+  }
 
   Future<void> createAccountData(
       {required Map<String, dynamic> map,

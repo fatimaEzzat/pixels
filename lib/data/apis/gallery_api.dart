@@ -4,10 +4,9 @@ import '../../network/remote/dio_helper.dart';
 
 class GalleryApi{
 
-  Future<dynamic> getPhotos() async {
+  Future<dynamic> getWallpapers() async {
     var response = await DioHelper.getData(
         endPoint: getPhotosEndpoint);
-    print("response: ${response.data.toString()}");
     return response;
   }
 }

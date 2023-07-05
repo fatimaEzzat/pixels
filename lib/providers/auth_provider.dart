@@ -33,46 +33,17 @@ class AuthProvider with ChangeNotifier {
 
   // Stream<UserModel> checkUser
 
-  Future<UserModel> getUserData({required String uId}) async {
+  Future<void> getUserData({required String uId}) async {
     setDataState(state: DataStates.loading);
     try {
-      Future.delayed(Duration(seconds: 3), () {
-        setDataState(state: DataStates.success);
-      });
-      return UserModel.createAccountData(
-          uId: 'uId',
-          firstName: 'firstName',
-          lastName: 'lastName',
-          email: 'email');
-
-      // var response = await _authRepo.getUserData(
-      //     uId: uId /*, role: role.fireStoreCollection*/);
-      // if (response.exists) {
-      //   // if (response.data() == null) return;
-      //   if (response.data()!['role'] == 'lawyer') {
-      //     printDebug('data#: ${response.data().toString()}');
-      //     currentUser = LawyerData.fromJsonToLawyer(json: response.data()!);
-      //   } else {
-      //     currentUser = ClientData.fromJsonToClient(json: response.data()!);
-      //   }
-      //   await CacheHelper.saveData(key: 'uId', value: currentUser!.uId);
-      //   // emit(SuccessUserDataState());
-      //   return currentUser;
-      // } else {
-      //   emit(ErrorUserDataState(error: 'NOT_EXISTS'));
-      //   printDebug('getUserDataError: NOT_EXISTS');
-      //   return null;
-      // }
-    } catch (e) {
+      currentUser = await _authRepo.getUserData(
+          uId: uId );
+      setDataState(state: DataStates.success);
+      } catch (e) {
       printDebug('getUserDataError: ${e.toString()}');
       showToast(msg: e.toString(), state: ToastedStates.WARNING);
-      // emit(ErrorUserDataState(error: e.toString()));
       setDataState(state: DataStates.error);
-      return UserModel.createAccountData(
-          uId: 'uId',
-          firstName: 'firstName',
-          lastName: 'lastName',
-          email: 'email');
+      return null;
       ;
     }
   }

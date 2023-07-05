@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pixels/presentation/screens/home_layout.dart';
 
 
 import '../presentation/screens/auth_screens/login_screen.dart';
 import '../presentation/screens/auth_screens/register_screen.dart';
 import '../presentation/screens/auth_screens/splash_screen.dart';
-import '../presentation/screens/gallery_screens/galley_home_screen.dart';
+import '../presentation/screens/btm_navbar_screens/galley_home_screen.dart';
 import 'constants.dart';
 
 class AppRouter {
@@ -26,9 +27,9 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) {
           return const RegisterScreen();
         });
-      case homeScreen:
+      case homeLayout:
         return MaterialPageRoute(builder: (_) {
-          return const HomeScreen();
+          return const HomeLayout();
         });
     }
     return null;

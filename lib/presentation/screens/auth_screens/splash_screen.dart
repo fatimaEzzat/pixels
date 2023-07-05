@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Consumer<AuthProvider>(builder: (context, provider, child) {
       if (provider.dataState == DataStates.success) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushNamed(context, homeScreen);
+          Navigator.pushNamed(context, homeLayout);
         });
       }
       return Scaffold(

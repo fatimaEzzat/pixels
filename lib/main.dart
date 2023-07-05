@@ -12,8 +12,9 @@ import 'network/remote/dio_helper.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  DioHelper.init();
   CacheHelper.init();
+  DioHelper.init();
+
   runApp(OneNotification(
       builder: (_,__) {
         return MyApp(
@@ -44,13 +45,13 @@ class MyApp extends StatelessWidget {
           primarySwatch: defaultColor,
           textTheme: const TextTheme(
             titleLarge: TextStyle(
-                color: MyColors.greyTextColor, fontFamily: 'PoppinsMedium'),
+                color: Colors.black, fontFamily: 'PoppinsMedium'),
             labelSmall: TextStyle(
                 color: Colors.grey,
                 fontFamily: 'PoppinsMedium',
                 fontSize: 12.0),
             labelLarge: TextStyle(
-                color: MyColors.greyTextColor, fontFamily: 'PoppinsMedium'),
+                color: Colors.black, fontFamily: 'PoppinsMedium'),
           ),
         ),
         onGenerateRoute: appRouter.onGenerateRoute,

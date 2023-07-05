@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shimmer/shimmer.dart';
 
 printDebug(String message) {
   if (kDebugMode) debugPrint(message);
@@ -39,4 +41,63 @@ Color chooseToastColor(ToastedStates states) {
       break;
   }
   return color;
+}
+
+
+shimmerSliverGridViewEffect(){
+  return
+  GridView.custom(
+    gridDelegate: SliverWovenGridDelegate.count(
+      crossAxisCount: 2,
+      mainAxisSpacing: 8,
+      crossAxisSpacing: 8,
+      pattern: [
+        WovenGridTile(1),
+        WovenGridTile(
+          5 / 7,
+          crossAxisRatio: 0.9,
+          alignment: AlignmentDirectional.centerEnd,
+        ),
+      ],
+    ),
+    childrenDelegate: SliverChildBuilderDelegate(
+          (context, index) => Shimmer.fromColors(
+            baseColor: Colors.grey[350]!,
+            highlightColor: Colors.grey[100]!,
+            child: Container(
+              height: 100.0,
+              width: 110.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.grey.withOpacity(0.3),
+              ),
+            ),
+          )
+    ),
+  );
+
+  // return SliverGrid(
+  //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  //     crossAxisCount: 2, childAspectRatio: 0.8,
+  //     crossAxisSpacing: 16.0,
+  //     mainAxisSpacing: 16.0,
+  //   ),
+  //   delegate: SliverChildBuilderDelegate(
+  //         (context,index){
+  //       return Shimmer.fromColors(
+  //         baseColor: Colors.grey[350]!,
+  //         highlightColor: Colors.grey[100]!,
+  //         child: Container(
+  //           height: 100.0,
+  //           width: 110.0,
+  //           decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(10.0),
+  //             color: Colors.grey.withOpacity(0.3),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //     childCount: 15,
+  //   ),
+  // );
 }
