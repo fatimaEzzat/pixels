@@ -81,7 +81,7 @@ class SearchWallpaperScreen extends StatelessWidget {
                                 imageUrl: context.watch<GalleryProvider>()
                                     .searchUiDisplayedWallpapers[index]
                                     .src!
-                                    .original!);
+                                    .original);
                           }),
                     );
                   },

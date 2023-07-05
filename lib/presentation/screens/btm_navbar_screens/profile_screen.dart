@@ -59,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
                           });
                     },
                     fallback: (BuildContext context) {
-                      if (provider.dataState == DataStates.loading) {
+                      if (provider.listenSate == ListenDataSates.loading) {
                         return shimmerSliverGridViewEffect();
                       } else {
                         return Center(child: Text('Empty yet !'),);

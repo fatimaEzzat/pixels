@@ -12,6 +12,7 @@ import '../network/local/cache_helper.dart';
 import '../shared/utilities.dart';
 
 enum DataStates { init, loading, success, error }
+enum ListenDataSates{init, loading, success, error }
 
 class AuthProvider with ChangeNotifier {
   final _authRepo = AuthRepo(FirebaseAuthApi());
@@ -34,6 +35,12 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  late ListenDataSates listenSate = ListenDataSates.init;
+  void setListenDataState({required  ListenDataSates state}) {
+    this.listenSate = state;
+    notifyListeners();
+  }
+
 
   Future<void> getUserData({required String uId}) async {
     setDataState(state: DataStates.loading);
@@ -53,9 +60,7 @@ class AuthProvider with ChangeNotifier {
   StreamSubscription? _consultationStream;
 List<Wallpaper> favWallpaper=[];
   void listenFavoritesWallpaper() {
-    print('faaaaa');
-    // if (currentUser?.uId == null) return;
-   setDataState(state: DataStates.loading);
+    setListenDataState(state: ListenDataSates.loading);
     try {
       _consultationStream = _authRepo
           .getFavoriteWallpapers()
@@ -64,12 +69,12 @@ List<Wallpaper> favWallpaper=[];
         for (var wallpaper in event.docs) {
             favWallpaper.add(Wallpaper.fromJson(wallpaper.data()));
         }
-        setDataState(state: DataStates.success);
+        setListenDataState(state: ListenDataSates.success);
 
       });
     } catch (e) {
       printDebug('Error in listenFavoritesWallpaper: ${e.toString()}');
-      setDataState(state: DataStates.error);
+      setListenDataState(state: ListenDataSates.error);
     }
   }
 
@@ -168,7 +173,7 @@ List<Wallpaper> favWallpaper=[];
   }
 
   Future<void> signOut(context) async {
-    await CacheHelper.removeData(key: 'uId');
+    await CacheHelper.clear();
     _firebaseAuth
         .signOut()
         .then((value) => OneNotification.hardReloadRoot(context));
