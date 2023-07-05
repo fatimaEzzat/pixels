@@ -31,7 +31,6 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Stream<UserModel> checkUser
 
   Future<void> getUserData({required String uId}) async {
     setDataState(state: DataStates.loading);
@@ -68,8 +67,6 @@ class AuthProvider with ChangeNotifier {
       );
       if (res.user?.uid == null) {
         setDataState(state: DataStates.error);
-        // emit(ErrorRegisterByFirebaseEmailAndPasswordState(
-        //     error: 'Something went wrong'));
         return;
       }
       printDebug('uIdIs: ${res.user?.uid}');
@@ -89,7 +86,6 @@ class AuthProvider with ChangeNotifier {
       printDebug('registerByFirebaseEmailAndPasswordError: ${e.toString()}');
       showToast(msg: e.toString(), state: ToastedStates.WARNING);
       setDataState(state: DataStates.error);
-      // emit(ErrorRegisterByFirebaseEmailAndPasswordState(error: e.toString()));
     }
   }
 
@@ -104,6 +100,7 @@ class AuthProvider with ChangeNotifier {
       String uId = res.user?.uid ?? '';
       await CacheHelper.saveData(key: 'uId', value: uId);
       setDataState(state: DataStates.success);
+      getUserData(uId: uId);
     } catch (e) {
       printDebug('loginByEmailAndPasswordError: ${e.toString()}');
       showToast(

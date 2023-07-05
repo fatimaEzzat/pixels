@@ -40,7 +40,7 @@ class _HomeLayoutState extends State<HomeLayout> {
         centerTitle: true,
         elevation: 0.0,
         backgroundColor: Colors.white,
-        title: Text(context.watch<AuthProvider>().currentUser!.firstName,style: TextStyle(color: Colors.black),),
+        title: Text(btmNavScreensAppbarTitle[index],style: TextStyle(color: Colors.black),),
       ),
       bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Colors.black,

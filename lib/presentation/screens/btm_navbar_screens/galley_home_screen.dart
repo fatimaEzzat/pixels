@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    GalleryRepo(GalleryApi()).getWallpapers();
+    // GalleryRepo(GalleryApi()).getWallpapers();
     super.initState();
   }
 

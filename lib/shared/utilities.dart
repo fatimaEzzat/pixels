@@ -76,6 +76,7 @@ shimmerSliverGridViewEffect(){
     ),
   );
 
+
   // return SliverGrid(
   //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
   //     crossAxisCount: 2, childAspectRatio: 0.8,
@@ -100,4 +101,31 @@ shimmerSliverGridViewEffect(){
   //     childCount: 15,
   //   ),
   // );
+}
+
+Future<void> showConfirmDialog({required BuildContext context,required Function() onConfirm}) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: true, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Logout'),
+        content: const SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text('Are you sure to logout?'),
+              // Text('Would you like to approve of this message?'),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('ok'),
+            onPressed: onConfirm,
+          ),
+
+        ],
+      );
+    },
+  );
 }
