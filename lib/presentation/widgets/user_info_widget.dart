@@ -24,7 +24,7 @@ class UserInfo extends StatelessWidget {
               backgroundColor: MyColors.customGrey,
               child: Center(
                 child: Text(
-                  'F'.toUpperCase(),
+                  provider.currentUser!.firstName[0].toUpperCase(),
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ),
@@ -33,14 +33,14 @@ class UserInfo extends StatelessWidget {
               height: 10.0,
             ),
             Text(
-              'Fatma Ezzat',
+              provider.currentUser!.firstName+ ' '+provider.currentUser!.lastName,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             SizedBox(
               height: 10.0,
             ),
             Text(
-              'fatmaezzat@gmail.com',
+              provider.currentUser!.email,
               style: Theme.of(context).textTheme.labelLarge,
             ),
             SizedBox(

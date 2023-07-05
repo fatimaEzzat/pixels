@@ -132,6 +132,7 @@ class AuthProvider with ChangeNotifier {
       );
       setDataState(state: DataStates.success);
       await CacheHelper.saveData(key: 'uId', value: uId);
+      getUserData(uId: uId);
     } catch (e) {
       _firebaseAuth.currentUser?.delete();
       printDebug('createAccountDataError: ${e.toString()}');
