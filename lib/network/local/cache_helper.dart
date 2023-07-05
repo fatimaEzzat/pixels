@@ -5,7 +5,7 @@ class CacheHelper
 {
   static late SharedPreferences sharedPreferences;
 
-  static init() async
+  static Future init() async
   {
     sharedPreferences = await SharedPreferences.getInstance();
   }

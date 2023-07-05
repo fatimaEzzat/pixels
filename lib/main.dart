@@ -13,16 +13,14 @@ import 'network/remote/dio_helper.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  CacheHelper.init();
+  await CacheHelper.init();
   DioHelper.init();
 
-  runApp(OneNotification(
-      builder: (_,__) {
-        return MyApp(
-          appRouter: AppRouter(),
-        );
-      }
-  ));
+  runApp(OneNotification(builder: (_, __) {
+    return MyApp(
+      appRouter: AppRouter(),
+    );
+  }));
 }
 
 class MyApp extends StatelessWidget {
@@ -48,14 +46,14 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: defaultColor,
           textTheme: const TextTheme(
-            titleLarge: TextStyle(
-                color: Colors.black, fontFamily: 'PoppinsMedium'),
+            titleLarge:
+                TextStyle(color: Colors.black, fontFamily: 'PoppinsMedium'),
             labelSmall: TextStyle(
                 color: Colors.grey,
                 fontFamily: 'PoppinsMedium',
                 fontSize: 12.0),
-            labelLarge: TextStyle(
-                color: Colors.black, fontFamily: 'PoppinsMedium'),
+            labelLarge:
+                TextStyle(color: Colors.black, fontFamily: 'PoppinsMedium'),
           ),
         ),
         onGenerateRoute: appRouter.onGenerateRoute,

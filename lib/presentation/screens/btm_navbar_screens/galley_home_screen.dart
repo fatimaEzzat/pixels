@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _galleryProvider = Provider.of<GalleryProvider>(context, listen: false);
-      _galleryProvider.getPaginatedAdsCategories();
+      _galleryProvider.getPaginatedGalleryItems();
       _scrollController.addListener(scrollListener);
     });
     super.initState();
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
       if (_galleryProvider.currentPage < _galleryProvider.lastPage) {
-        _galleryProvider.getPaginatedAdsCategories(getMore: true);
+        _galleryProvider.getPaginatedGalleryItems(getMore: true);
       }
     }
   }

@@ -4,7 +4,7 @@ import 'package:pixels/data/data_models/gallery_data_model.dart';
 import 'package:pixels/data/repo/gallery_repo.dart';
 
 import '../shared/utilities.dart';
-enum GalleryStates { init, loading,loadingMore, success, error }
+enum GalleryStates { init, loading,loadingMore, success, error ,clear }
 class GalleryProvider with ChangeNotifier{
 
   final _galleryRepo = GalleryRepo(GalleryApi());
@@ -22,7 +22,7 @@ class GalleryProvider with ChangeNotifier{
   int lastPage = 20;
   int perPage = 10;
 
-  Future<void> getPaginatedAdsCategories({
+  Future<void> getPaginatedGalleryItems({
     bool getMore = false,
   }) async {
     if (getMore) {
@@ -57,6 +57,25 @@ class GalleryProvider with ChangeNotifier{
   }
 
 
+  List<Wallpaper> searchResultList = [];
+
+  List<Wallpaper> get searchUiDisplayedWallpapers =>
+      searchResultList.isEmpty ? wallpapers : searchResultList;
+
+  Future<void> searchWallpaper({required String target}) async {
+    setDataState(dateState: GalleryStates.loading);
+    try {
+      var response = await _galleryRepo.searchWallpaper(target: target);
+      searchResultList = response.wallpapers;
+      setDataState(dateState: GalleryStates.success);
+    } catch (e) {
+      setDataState(dateState: GalleryStates.error);
+    }
+  }
 
 
+  void clearUsersSearch({bool emitted = false}) {
+    searchResultList = [];
+    if (emitted)setDataState(dateState: GalleryStates.clear);
+  }
 }
