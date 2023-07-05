@@ -1,5 +1,31 @@
+class GalleryResponseModel {
+  late List<Wallpaper> wallpapers;
+  int? totalResults;
+  int? lastPage;
+  int? perPage;
+  int currentPage = 1;
+  bool loadingGetMore = false;
+
+  GalleryResponseModel({
+    required this.wallpapers,
+    required this.lastPage,
+    required this.totalResults,
+    required this.perPage,
+  });
+
+  factory GalleryResponseModel.fromJson(Map<String, dynamic> json) {
+    return GalleryResponseModel(
+      wallpapers:
+          List<Wallpaper>.from(json['photos'].map((e) => Wallpaper.fromJson(e))),
+      lastPage: json['page'] ?? 1,
+      totalResults: json['total_results'] ?? 10,
+      perPage: json['per_page'] ?? 1,
+    );
+  }
+}
+
 class Wallpaper {
- late int id;
+  late int id;
   int? width;
   int? height;
   String? url;
@@ -13,16 +39,16 @@ class Wallpaper {
 
   Wallpaper(
       {required this.id,
-        this.width,
-        this.height,
-        this.url,
-        this.photographer,
-        this.photographerUrl,
-        this.photographerId,
-        this.avgColor,
-        this.src,
-        this.liked,
-        this.alt});
+      this.width,
+      this.height,
+      this.url,
+      this.photographer,
+      this.photographerUrl,
+      this.photographerId,
+      this.avgColor,
+      this.src,
+      this.liked,
+      this.alt});
 
   Wallpaper.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -69,13 +95,13 @@ class Src {
 
   Src(
       {this.original,
-        this.large2x,
-        this.large,
-        this.medium,
-        this.small,
-        this.portrait,
-        this.landscape,
-        this.tiny});
+      this.large2x,
+      this.large,
+      this.medium,
+      this.small,
+      this.portrait,
+      this.landscape,
+      this.tiny});
 
   Src.fromJson(Map<String, dynamic> json) {
     original = json['original'];

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:one_context/one_context.dart';
 import 'package:pixels/providers/auth_provider.dart';
+import 'package:pixels/providers/gallery_provider.dart';
 import 'package:pixels/shared/routes.dart';
 import 'package:pixels/shared/style/colors.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AuthProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => GalleryProvider(),
         ),
       ],
       child: MaterialApp(
