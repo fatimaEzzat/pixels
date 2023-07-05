@@ -7,18 +7,12 @@ import '../../../providers/gallery_provider.dart';
 import '../../../shared/utilities.dart';
 import '../../views/gallery_item_view.dart';
 
-class SearchWallpaperScreen extends StatefulWidget {
+class SearchWallpaperScreen extends StatelessWidget {
   const SearchWallpaperScreen({Key? key}) : super(key: key);
 
   @override
-  State<SearchWallpaperScreen> createState() => _SearchWallpaperScreenState();
-}
-
-class _SearchWallpaperScreenState extends State<SearchWallpaperScreen> {
-  final TextEditingController searchController = TextEditingController();
-
-  @override
   Widget build(BuildContext context) {
+    final TextEditingController searchController = TextEditingController();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -66,10 +60,10 @@ class _SearchWallpaperScreenState extends State<SearchWallpaperScreen> {
             SizedBox(
               height: 40,
             ),
-            Consumer<GalleryProvider>(
-              builder: (context, provider, _) {
-                return ConditionalBuilder(
-                  condition: provider.searchUiDisplayedWallpapers.isNotEmpty,
+            // Consumer<GalleryProvider>(
+            //   builder: (context, provider, _) {
+                 ConditionalBuilder(
+                  condition: context.watch<GalleryProvider>().searchUiDisplayedWallpapers.isNotEmpty,
                   builder: (context) {
                     return Expanded(
                       child: MasonryGridView.count(
@@ -78,10 +72,10 @@ class _SearchWallpaperScreenState extends State<SearchWallpaperScreen> {
                           mainAxisSpacing: 20,
                           crossAxisSpacing: 20,
                           itemCount:
-                              provider.searchUiDisplayedWallpapers.length,
+                          context.watch<GalleryProvider>().searchUiDisplayedWallpapers.length,
                           itemBuilder: (context, index) {
                             return GalleryItemView(
-                                imageUrl: provider
+                                imageUrl: context.watch<GalleryProvider>()
                                     .searchUiDisplayedWallpapers[index]
                                     .src!
                                     .original!);
@@ -91,9 +85,9 @@ class _SearchWallpaperScreenState extends State<SearchWallpaperScreen> {
                   fallback: (BuildContext context) {
                     return shimmerSliverGridViewEffect();
                   },
-                );
-              },
-            )
+                )
+            //   },
+            // )
           ],
         ),
       ),
