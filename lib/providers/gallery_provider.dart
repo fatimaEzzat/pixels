@@ -3,6 +3,7 @@ import 'package:pixels/data/apis/gallery_api.dart';
 import 'package:pixels/data/data_models/gallery_data_model.dart';
 import 'package:pixels/data/repo/gallery_repo.dart';
 
+import '../network/local/cache_helper.dart';
 import '../shared/utilities.dart';
 enum GalleryStates { init, loading,loadingMore, success, error ,clear }
 class GalleryProvider with ChangeNotifier{
@@ -77,5 +78,13 @@ class GalleryProvider with ChangeNotifier{
   void clearUsersSearch({bool emitted = false}) {
     searchResultList = [];
     if (emitted)setDataState(dateState: GalleryStates.clear);
+  }
+
+  bool isFav =false;
+  void toggleFavorite({required String id}) async {
+    isFav = !isFav;
+    await CacheHelper.saveData(key: id, value: isFav);
+    print('saveddd');
+    setDataState(dateState: GalleryStates.success);
   }
 }

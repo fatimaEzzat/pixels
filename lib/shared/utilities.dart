@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 printDebug(String message) {
   if (kDebugMode) debugPrint(message);
@@ -129,3 +130,12 @@ Future<void> showConfirmDialog({required BuildContext context,required Function(
     },
   );
 }
+
+Color getColorFromHex(String hexColor) {
+  hexColor = hexColor.replaceAll("#", "");
+  if (hexColor.length == 6) {
+    hexColor = "FF" + hexColor;
+  }
+  return Color(int.parse(hexColor, radix: 16));
+}
+

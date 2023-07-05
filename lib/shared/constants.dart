@@ -3,6 +3,7 @@ const String splashScreen='/';
 const String loginScreen='/loginScreen';
 const String registerScreen='/registerScreen';
 const String homeLayout='/homeScreen';
+const String wallpaperDetailsScreen='/wallpaperDetailaScreen';
 
 
 //______________App configs___________

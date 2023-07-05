@@ -75,6 +75,9 @@ class SearchWallpaperScreen extends StatelessWidget {
                           context.watch<GalleryProvider>().searchUiDisplayedWallpapers.length,
                           itemBuilder: (context, index) {
                             return GalleryItemView(
+                              onTap: (){
+
+                              },
                                 imageUrl: context.watch<GalleryProvider>()
                                     .searchUiDisplayedWallpapers[index]
                                     .src!

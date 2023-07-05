@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:pixels/presentation/views/gallery_item_view.dart';
 import 'package:pixels/providers/gallery_provider.dart';
+import 'package:pixels/shared/constants.dart';
 import 'package:pixels/shared/utilities.dart';
 import 'package:provider/provider.dart';
 
@@ -57,6 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: provider.wallpapers.length,
                     itemBuilder: (context, index) {
                       return GalleryItemView(
+                        onTap: (){
+                          Navigator.pushNamed(context, wallpaperDetailsScreen,arguments:provider.wallpapers[index] );
+                        },
                           imageUrl: provider.wallpapers[index].src!.original!);
                     });
               }, fallback: (BuildContext context) {
