@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:one_context/one_context.dart';
 import 'package:pixels/data/apis/firebase_auth_api.dart';
+import '../data/data_models/gallery_data_model.dart';
 import '../data/data_models/user_data_model.dart';
 import '../data/repo/auth_repo.dart';
 import '../network/local/cache_helper.dart';
@@ -44,6 +47,29 @@ class AuthProvider with ChangeNotifier {
       setDataState(state: DataStates.error);
       return null;
       ;
+    }
+  }
+
+  StreamSubscription? _consultationStream;
+List<Wallpaper> favWallpaper=[];
+  void listenFavoritesWallpaper() {
+    print('faaaaa');
+    // if (currentUser?.uId == null) return;
+   setDataState(state: DataStates.loading);
+    try {
+      _consultationStream = _authRepo
+          .getFavoriteWallpapers()
+          .listen((event) {
+        favWallpaper.clear();
+        for (var wallpaper in event.docs) {
+            favWallpaper.add(Wallpaper.fromJson(wallpaper.data()));
+        }
+        setDataState(state: DataStates.success);
+
+      });
+    } catch (e) {
+      printDebug('Error in listenFavoritesWallpaper: ${e.toString()}');
+      setDataState(state: DataStates.error);
     }
   }
 

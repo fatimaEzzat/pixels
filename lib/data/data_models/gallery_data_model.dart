@@ -50,6 +50,14 @@ class Wallpaper {
       this.liked,
       this.alt});
 
+  Wallpaper.addToFavorites(
+      {required this.id,
+        required this.width,
+        required this.height,
+        required this.src,
+        required  this.alt});
+
+
   Wallpaper.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     width = json['width'];
@@ -81,10 +89,22 @@ class Wallpaper {
     data['alt'] = this.alt;
     return data;
   }
+
+  Map<String, dynamic> toAddFavoritesJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['width'] = this.width;
+    data['height'] = this.height;
+    if (this.src != null) {
+      data['src'] = this.src!.toJson();
+    }
+    data['alt'] = this.alt;
+    return data;
+  }
 }
 
 class Src {
-  String? original;
+  late String original;
   String? large2x;
   String? large;
   String? medium;
@@ -94,7 +114,7 @@ class Src {
   String? tiny;
 
   Src(
-      {this.original,
+      {required this.original,
       this.large2x,
       this.large,
       this.medium,

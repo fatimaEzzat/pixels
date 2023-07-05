@@ -57,7 +57,7 @@ class WallpaperDetailsScreen extends StatelessWidget {
                   builder: (context, provider, child) {
                     return InkWell(
                       onTap: () {
-                        provider.toggleFavorite(id: wallpaper.id.toString());
+                        provider.toggleFavorite(wallpaper: wallpaper);
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -104,7 +104,7 @@ class WallpaperDetailsScreen extends StatelessWidget {
                     width: 100,
                     height: 40,
                     decoration: BoxDecoration(
-                        color: getColorFromHex(wallpaper.avgColor!),
+                        color: getColorFromHex(wallpaper.avgColor ??'ffffff'),
                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
                   )
                 ],
@@ -124,7 +124,7 @@ class WallpaperDetailsScreen extends StatelessWidget {
                     width: 10.0,
                   ),
                   Container(
-                    width: 150,
+                    width: 170,
                     height: 40,
                     decoration: BoxDecoration(
                       color: MyColors.primaryColor,

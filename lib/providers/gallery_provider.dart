@@ -5,15 +5,16 @@ import 'package:pixels/data/repo/gallery_repo.dart';
 
 import '../network/local/cache_helper.dart';
 import '../shared/utilities.dart';
-enum GalleryStates { init, loading,loadingMore, success, error ,clear }
-class GalleryProvider with ChangeNotifier{
 
+enum GalleryStates { init, loading, loadingMore, success, error, clear }
+
+class GalleryProvider with ChangeNotifier {
   final _galleryRepo = GalleryRepo(GalleryApi());
 
-  GalleryStates state=GalleryStates.init;
+  GalleryStates state = GalleryStates.init;
 
-  void setDataState({required GalleryStates dateState}){
-    this.state=dateState;
+  void setDataState({required GalleryStates dateState}) {
+    this.state = dateState;
     notifyListeners();
   }
 
@@ -34,9 +35,7 @@ class GalleryProvider with ChangeNotifier{
       setDataState(dateState: GalleryStates.loading);
     }
     _galleryRepo
-        .getWallpapers(
-        page: currentPage,
-        perPage: perPage)
+        .getWallpapers(page: currentPage, perPage: perPage)
         .then((GalleryResponseModel value) {
       if (value.wallpapers.isNotEmpty) {
         if (getMore) {
@@ -57,7 +56,6 @@ class GalleryProvider with ChangeNotifier{
     });
   }
 
-
   List<Wallpaper> searchResultList = [];
 
   List<Wallpaper> get searchUiDisplayedWallpapers =>
@@ -74,17 +72,29 @@ class GalleryProvider with ChangeNotifier{
     }
   }
 
-
   void clearUsersSearch({bool emitted = false}) {
     searchResultList = [];
-    if (emitted)setDataState(dateState: GalleryStates.clear);
+    if (emitted) setDataState(dateState: GalleryStates.clear);
   }
 
-  bool isFav =false;
-  void toggleFavorite({required String id}) async {
+  bool isFav = false;
+
+  void toggleFavorite({required Wallpaper wallpaper}) async {
     isFav = !isFav;
-    await CacheHelper.saveData(key: id, value: isFav);
-    print('saveddd');
+    await CacheHelper.saveData(key: wallpaper.id.toString(), value: isFav);
+    if(isFav){
+      _galleryRepo.addWallpaperToFavorites(
+          uId: CacheHelper.getString(key: 'uId'),
+          wallpaperId: wallpaper.id.toString(),
+          wallpaperData: Wallpaper.addToFavorites(
+            id: wallpaper.id,
+            width: wallpaper.width,
+            height: wallpaper.id,
+            src: Src(original: wallpaper.src!.original),
+            alt: wallpaper.alt,
+          ));
+    }
+
     setDataState(dateState: GalleryStates.success);
   }
 }

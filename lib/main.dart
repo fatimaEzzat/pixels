@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => AuthProvider(),
+          create: (_) => AuthProvider()..listenFavoritesWallpaper(),
         ),
         ChangeNotifierProvider(
           create: (_) => GalleryProvider(),

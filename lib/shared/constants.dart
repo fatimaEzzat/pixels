@@ -17,3 +17,4 @@ const searchWallpaperEndpoint='search';
 
 //____________Firebase Collections________
 const usersCollection='Users';
+const favoritesCollection='Favorites';

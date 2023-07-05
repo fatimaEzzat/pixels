@@ -5,6 +5,7 @@ import 'package:pixels/data/data_models/gallery_data_model.dart';
 abstract class GalleryRepoInterface {
   Future<GalleryResponseModel> getWallpapers({required int page,required int  perPage});
   Future<GalleryResponseModel> searchWallpaper({required String target});
+  Future<dynamic> addWallpaperToFavorites({required Wallpaper wallpaperData, required String uId, required String wallpaperId});
 
 }
 
@@ -24,6 +25,12 @@ class GalleryRepo implements GalleryRepoInterface {
    Map<String,dynamic> targetMap={'query':target};
    Response response =await _galleryApi.searchWallpaper(targetQueryMap: targetMap);
    return await  GalleryResponseModel.fromJson(response.data);
+  }
+
+  @override
+  Future<dynamic> addWallpaperToFavorites({required Wallpaper wallpaperData, required String uId, required String wallpaperId})async {
+    Map<String,dynamic> data=wallpaperData.toAddFavoritesJson();
+    return await _galleryApi.addWallpaperToFavorites(wallpaperData: data, uId: uId, wallpaperId: wallpaperId);
   }
 
 }
