@@ -52,6 +52,13 @@ class SearchWallpaperScreen extends StatelessWidget {
             ),
             Visibility(
               visible: context.watch<GalleryProvider>().state ==
+                  GalleryStates.error,
+              child: Center(
+                child: Text('There is no results'),
+              ),
+            ),
+            Visibility(
+              visible: context.watch<GalleryProvider>().state ==
                   GalleryStates.loading,
               child: Center(
                 child: CircularProgressIndicator(),
@@ -60,10 +67,10 @@ class SearchWallpaperScreen extends StatelessWidget {
             SizedBox(
               height: 40,
             ),
-            // Consumer<GalleryProvider>(
-            //   builder: (context, provider, _) {
-                 ConditionalBuilder(
-                  condition: context.watch<GalleryProvider>().searchUiDisplayedWallpapers.isNotEmpty,
+            Consumer<GalleryProvider>(
+              builder: (context, provider, _) {
+                return ConditionalBuilder(
+                  condition: provider.searchUiDisplayedWallpapers.isNotEmpty,
                   builder: (context) {
                     return Expanded(
                       child: MasonryGridView.count(
@@ -72,25 +79,29 @@ class SearchWallpaperScreen extends StatelessWidget {
                           mainAxisSpacing: 20,
                           crossAxisSpacing: 20,
                           itemCount:
-                          context.watch<GalleryProvider>().searchUiDisplayedWallpapers.length,
+                              provider.searchUiDisplayedWallpapers.length,
                           itemBuilder: (context, index) {
                             return GalleryItemView(
-                              onTap: (){
-
-                              },
-                                imageUrl: context.watch<GalleryProvider>()
+                                onTap: () {},
+                                imageUrl: provider
                                     .searchUiDisplayedWallpapers[index]
                                     .src!
                                     .original);
                           }),
                     );
                   },
-                  fallback: (BuildContext context) {
-                    return shimmerSliverGridViewEffect();
+                  fallback: (_) {
+                    if (provider.searchResultList.isEmpty) {
+                      return Center(
+                        child: Text('There is no results'),
+                      );
+                    } else {
+                      return shimmerSliverGridViewEffect();
+                    }
                   },
-                )
-            //   },
-            // )
+                );
+              },
+            )
           ],
         ),
       ),

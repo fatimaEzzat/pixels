@@ -66,7 +66,11 @@ class GalleryProvider with ChangeNotifier {
     try {
       var response = await _galleryRepo.searchWallpaper(target: target);
       searchResultList = response.wallpapers;
-      setDataState(dateState: GalleryStates.success);
+      if(searchResultList.isEmpty){
+        setDataState(dateState: GalleryStates.error);
+      }else{
+        setDataState(dateState: GalleryStates.success);
+      }
     } catch (e) {
       setDataState(dateState: GalleryStates.error);
     }
